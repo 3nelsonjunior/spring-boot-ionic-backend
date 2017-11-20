@@ -8,35 +8,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-
-public class Categoria implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
+public class Produto implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //definindo a estratégia de geração automatica de id's da tabela
 	private Integer id;
 	private String nome;
+	private Double preco;
 	
-	//categoria possui uma lista de produtos
-	@ManyToMany(mappedBy="categorias") //como foi feito mapeamento em Produto só adicionar MappedBy
-	private List<Produto> produtos = new ArrayList<>();
+	//possui uma lista de categrias(pode ser de varias categorias)
+	@ManyToMany
+	@JoinTable(name = "PRODUTO_CATEGORIA", 
+		joinColumns = @JoinColumn(name ="produto_id"),
+		inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private List<Categoria> categorias = new ArrayList<>();
 	
-	//construtor sem parâmetros
-	public Categoria() {
+	public Produto() {
 		
 	}
 	
-	//construtor com parâmetros
-	public Categoria(Integer id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
-	
-	//get's e set's
 	public Integer getId() {
 		return id;
 	}
@@ -52,13 +49,29 @@ public class Categoria implements Serializable { //Serializable.: Objetos podem 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public List<Produto> getProdutos() {
-		return produtos;
+
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	//construtor com parametros não possui categorias, pois ja foi inicializada na classe Categoria 
+	public Produto(Integer id, String nome, Double preco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
 	}
 	
 	//para os objetos para serem comparado por conteúdo e não pelo ponteiro de memória
@@ -78,7 +91,7 @@ public class Categoria implements Serializable { //Serializable.: Objetos podem 
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -86,6 +99,7 @@ public class Categoria implements Serializable { //Serializable.: Objetos podem 
 			return false;
 		return true;
 	}
-
 	
-} //fim
+	
+
+}
