@@ -20,11 +20,14 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaService service; //acessando o serviço
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	//value incluido para acesssar via 'categorias/id' no navegador
+	@RequestMapping(value="/{id}", method=RequestMethod.GET) 
+	//retorna um objeto do tipo Respose Entity, já encapsula varias informações de uma resposta HTTP para um serviço REST  
+	//find recebe um id(PathVariable = para o id da URL ir para o id da variavel )
+	public ResponseEntity<?> find(@PathVariable Integer id) { 
 		
 		Categoria obj = service.buscar(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(obj); //body = corpo da resposta vai o objeto
 	}
 
 }
