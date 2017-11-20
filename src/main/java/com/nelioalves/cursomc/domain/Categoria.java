@@ -2,10 +2,18 @@ package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
 
-//Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
-public class Categoria implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+
+public class Categoria implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //definindo a estratégia de geração automatica de id's da tabela
 	private Integer id;
 	
 	private String nome;
