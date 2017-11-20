@@ -2,13 +2,15 @@ package com.nelioalves.cursomc.resources.exceptions;
 
 import java.io.Serializable;
 
+
+//Erro Padrão --> Customizando erro
 public class StandardError implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer status;
-	private String msg;
-	private Long timeStamp;
+	private Integer status; // status HTTP do erro
+	private String msg; //mensagem de erro
+	private Long timeStamp; // instante que ocorreu o erro (milisegundos)
 	
 	
 	public StandardError(Integer status, String msg, Long timeStamp) {
