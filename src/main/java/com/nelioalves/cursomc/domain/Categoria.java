@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 
 public class Categoria implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
@@ -21,6 +23,7 @@ public class Categoria implements Serializable { //Serializable.: Objetos podem 
 	private String nome;
 	
 	//categoria possui uma lista de produtos
+	@JsonManagedReference //lado que vc quer que venham os objetos referenciado(probelama de varias chamadas de objestos)
 	@ManyToMany(mappedBy="categorias") //como foi feito mapeamento em Produto só adicionar MappedBy
 	private List<Produto> produtos = new ArrayList<>();
 	
