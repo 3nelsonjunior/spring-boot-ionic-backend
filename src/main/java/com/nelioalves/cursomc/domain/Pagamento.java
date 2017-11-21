@@ -4,19 +4,23 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.nelioalves.cursomc.domain.enuns.EstadoPagamento;
 
+//abstract para garantir não instaciá-la, mas sim sempre suas classes filhas
 @Entity
-public class Pagamento implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
+@Inheritance(strategy=InheritanceType.JOINED) //relacionamento com classes filhas
+public abstract class Pagamento implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Integer id;
-	private EstadoPagamento estado;
+	private Integer estado;
 	
 	@OneToOne
 	@JoinColumn(name="pedido_id")
@@ -30,7 +34,7 @@ public class Pagamento implements Serializable { //Serializable.: Objetos podem 
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado;
+		this.estado = estado.getCod();
 		this.pedido = pedido;
 	}
 
@@ -43,11 +47,11 @@ public class Pagamento implements Serializable { //Serializable.: Objetos podem 
 	}
 
 	public EstadoPagamento getEstado() {
-		return estado;
+		return EstadoPagamento.toEnum(estado);
 	}
 
 	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado;
+		this.estado = estado.getCod();
 	}
 
 	public Pedido getPedido() {
