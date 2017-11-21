@@ -2,7 +2,9 @@ package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,8 +35,27 @@ public class Produto implements Serializable { //Serializable.: Objetos podem se
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	private Set<ItemPedido> itens = new HashSet<>();
+	
 	public Produto() {
 		
+	}
+	
+	//construtor com parametros não possui categorias, pois ja foi inicializada na classe Categoria 
+	public Produto(Integer id, String nome, Double preco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+	}
+	
+	//retoranar uma lista de pedidos que possui um item especifico
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>();
+		for(ItemPedido x : itens) {
+			lista.add(x.getPedido());
+		}
+		return lista;
 	}
 	
 	public Integer getId() {
@@ -68,14 +89,16 @@ public class Produto implements Serializable { //Serializable.: Objetos podem se
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-
-	//construtor com parametros não possui categorias, pois ja foi inicializada na classe Categoria 
-	public Produto(Integer id, String nome, Double preco) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.preco = preco;
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
 	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+
+	
 	
 	//para os objetos para serem comparado por conteúdo e não pelo ponteiro de memória
 	@Override
@@ -102,6 +125,8 @@ public class Produto implements Serializable { //Serializable.: Objetos podem se
 			return false;
 		return true;
 	}
+
+	
 	
 	
 
