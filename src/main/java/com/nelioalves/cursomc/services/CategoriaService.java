@@ -22,5 +22,10 @@ public class CategoriaService {
 		}
 		return obj;
 	}
+	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null); //garantir id vazio, devido auto incrementação
+		return repo.save(obj);
+	}
 
 }
