@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ItemPedido implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId //ID embutido num tipo auxiliar
 	private ItemPedidoPK id = new ItemPedidoPK(); //chave composta que utiliza um chave auxiliar
 	
