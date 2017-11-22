@@ -25,8 +25,8 @@ public class CategoriaResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET) 
 	//retorna um objeto do tipo Respose Entity, já encapsula varias informações de uma resposta HTTP para um serviço REST  
 	//find recebe um id(PathVariable = para o id da URL ir para o id da variavel )
-	public ResponseEntity<?> find(@PathVariable Integer id) { 
-		Categoria obj = service.buscar(id);
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) { 
+		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj); //body = corpo da resposta vai o objeto
 	}
 	
@@ -37,6 +37,13 @@ public class CategoriaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("{/id}").buildAndExpand(objCategoria.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT) 
+	public ResponseEntity<Void> update(@RequestBody Categoria objCategoria, @PathVariable Integer id){
+		objCategoria.setId(id);
+		objCategoria = service.update(objCategoria);
+		return ResponseEntity.noContent().build();
 	}
 
 }

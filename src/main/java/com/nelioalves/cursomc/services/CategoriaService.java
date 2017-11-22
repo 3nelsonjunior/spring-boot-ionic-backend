@@ -14,7 +14,7 @@ public class CategoriaService {
 	private CategoriaRepository repo; //acessando o repository
 	
 	//serviço que busca categoria
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		Categoria obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id.: "+ id
@@ -23,9 +23,14 @@ public class CategoriaService {
 		return obj;
 	}
 	
-	public Categoria insert(Categoria obj) {
-		obj.setId(null); //garantir id vazio, devido auto incrementação
-		return repo.save(obj);
+	public Categoria insert(Categoria objCategoria) {
+		objCategoria.setId(null); //garantir id vazio, devido auto incrementação
+		return repo.save(objCategoria);
+	}
+	
+	public Categoria update(Categoria objCategoria) {
+		find(objCategoria.getId());
+		return repo.save(objCategoria);
 	}
 
 }

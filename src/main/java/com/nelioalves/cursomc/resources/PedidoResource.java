@@ -21,8 +21,8 @@ public class PedidoResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET) 
 	//retorna um objeto do tipo Respose Entity, já encapsula varias informações de uma resposta HTTP para um serviço REST  
 	//find recebe um id(PathVariable = para o id da URL ir para o id da variavel )
-	public ResponseEntity<?> find(@PathVariable Integer id) { 
-		Pedido obj = service.buscar(id);
+	public ResponseEntity<Pedido> find(@PathVariable Integer id) { 
+		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj); //body = corpo da resposta vai o objeto
 	}
 
