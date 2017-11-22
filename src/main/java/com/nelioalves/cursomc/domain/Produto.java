@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
@@ -36,6 +37,7 @@ public class Produto implements Serializable { //Serializable.: Objetos podem se
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="id.produto") //do outro o itemproduto tem obj id, que é auxiliar(itempedidoPK) com referencia ao produto
 	private Set<ItemPedido> itens = new HashSet<>();
 	
@@ -52,6 +54,7 @@ public class Produto implements Serializable { //Serializable.: Objetos podem se
 	}
 	
 	//retoranar uma lista de pedidos que possui um item especifico
+	@JsonIgnore ///não serializar a lista
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido x : itens) {
