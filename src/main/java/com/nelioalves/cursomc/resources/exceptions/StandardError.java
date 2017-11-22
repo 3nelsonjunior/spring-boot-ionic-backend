@@ -2,6 +2,8 @@ package com.nelioalves.cursomc.resources.exceptions;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 //Erro Padrão --> Customizando erro
 public class StandardError implements Serializable {
