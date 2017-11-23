@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nelioalves.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.dto.ClienteDTO;
+import com.nelioalves.cursomc.dto.ClienteNewDTO;
 import com.nelioalves.cursomc.services.ClienteService;
 
 @RestController
@@ -53,6 +56,16 @@ public class ClienteResource {
 		Page<Cliente> objListaCliente = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<ClienteDTO> objListaClienteDTO = objListaCliente.map(obj -> new ClienteDTO(obj)); //a partir do Java 8, não precisa converter DTO, ja faz automático
 		return ResponseEntity.ok().body(objListaClienteDTO); //body = corpo da resposta vai o objeto
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO){ //RequestBody faz json ser convertido para JAVA
+		Cliente obj = service.fromDTO(objDTO);
+		obj = service.insert(obj);
+		//pegar id da URL: fromCurrentRequest atribuindo via buildAndExpand
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("{/id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 	
 	
