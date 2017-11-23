@@ -35,7 +35,7 @@ public class ClienteService {
 	public Cliente find(Integer id) {
 		Cliente obj = repo.findOne(id);
 		if(obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id.: "+ id
+			throw new ObjectNotFoundException("Pedido não encontrado! Id.: "+ id
 					+ ", Tipo.: " + Cliente.class.getName());
 		}
 		return obj;
@@ -65,7 +65,7 @@ public class ClienteService {
 			repo.delete(id);
 		}
 		catch(DataIntegrityViolationException e){
-			throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas!");
+			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados!");
 		}		
 	}
 	
