@@ -18,7 +18,7 @@ public class Estado implements Serializable { //Serializable.: Objetos podem ser
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //definindo a estratégia de geração automatica de id's da tabela
-	private Integer Id;
+	private Integer id;
 	private String nome;
 	
 	@JsonIgnore
@@ -31,16 +31,16 @@ public class Estado implements Serializable { //Serializable.: Objetos podem ser
 
 	public Estado(Integer id, String nome) {
 		super();
-		Id = id;
+		this.id = id;
 		this.nome = nome;
 	}
 
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -63,7 +63,7 @@ public class Estado implements Serializable { //Serializable.: Objetos podem ser
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -76,10 +76,10 @@ public class Estado implements Serializable { //Serializable.: Objetos podem ser
 		if (getClass() != obj.getClass())
 			return false;
 		Estado other = (Estado) obj;
-		if (Id == null) {
-			if (other.Id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

@@ -51,14 +51,14 @@ public class Cliente implements Serializable { //Serializable.: Objetos podem se
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod(); //getCod para retornar Integer
+		this.tipo = (tipo == null) ? null : tipo.getCod(); //getCod para retornar Integer
 	}
 
-	public Integer getid() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setid(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
