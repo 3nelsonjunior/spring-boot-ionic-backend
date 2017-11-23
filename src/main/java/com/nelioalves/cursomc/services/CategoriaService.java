@@ -41,7 +41,9 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria objCategoria) {
-		find(objCategoria.getId()); //verifica se o id existe
+		//instancia o objeto a partir do BD, para o objeto fica monitorado pelo JPA, depois atualiza com objeto enviado na requisição para depois salvá-lo
+		Categoria newObj = find(objCategoria.getId()); //verifica se o id existe
+		updateData(newObj, objCategoria);
 		return repo.save(objCategoria);
 	}
 
@@ -64,6 +66,10 @@ public class CategoriaService {
 	//instacia uma categoria a partir de uma DTO
 	public Categoria fromDTO(CategoriaDTO objCategoriaDTO) {
 		return new Categoria(objCategoriaDTO.getId(), objCategoriaDTO.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria objCategoria) {
+		newObj.setNome(objCategoria.getNome());
 	}
 	
 }
