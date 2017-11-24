@@ -2,6 +2,8 @@ package com.nelioalves.cursomc.dto;
 
 import java.io.Serializable;
 
+import com.nelioalves.cursomc.domain.Produto;
+
 public class ProdutoDTO  implements Serializable { //Serializable.: Objetos podem ser convertidos em arquivos para trafegar em rede e etc.(padrão/exigência Java)
 	private static final long serialVersionUID = 1L;
 	
@@ -12,6 +14,12 @@ public class ProdutoDTO  implements Serializable { //Serializable.: Objetos pode
 	
 	public ProdutoDTO() {
 		
+	}
+	
+	public ProdutoDTO(Produto obj) {
+		id = obj.getId();
+		nome = obj.getNome();
+		preco = obj.getPreco();
 	}
 
 
